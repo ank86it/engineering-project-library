@@ -1,2 +1,2 @@
 # engineering-project-library
-used to store and share project result and 2 way communication with me and viewer
+Engineering project repository for sharing technical reports, simulation results, and reviewer feedback through downloadable documents and project discussions.
