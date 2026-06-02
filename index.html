@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Engineering Project Review Portal</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f5f7fa;margin:0;padding:30px;}
+h1{text-align:center;color:#1f2937;}
+.subtitle{text-align:center;color:#6b7280;margin-bottom:40px;}
+.card{background:white;border-radius:10px;padding:25px;margin:20px auto;max-width:900px;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+.category{display:inline-block;background:#e5e7eb;padding:5px 10px;border-radius:20px;font-size:12px;margin-bottom:10px;}
+.download-btn{display:inline-block;background:#2563eb;color:white;text-decoration:none;padding:10px 18px;border-radius:6px;margin-top:10px;}
+</style>
+</head>
+<body>
+<h1>Engineering Project Review Portal</h1>
+<p class="subtitle">Project reports, simulation results and downloadable documentation</p>
+<div id="projects"></div>
+<script>
+fetch('projects.json')
+.then(response => response.json())
+.then(projects => {
+const container = document.getElementById('projects');
+projects.forEach(project => {
+const card = document.createElement('div');
+card.className='card';
+card.innerHTML=`
+<div class="category">${project.category}</div>
+<h2>${project.title}</h2>
+<p>${project.description}</p>
+<a class="download-btn" href="${project.report}" target="_blank">Download Report</a>`;
+container.appendChild(card);
+});
+});
+</script>
+</body>
+</html>

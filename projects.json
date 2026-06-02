@@ -1,0 +1,8 @@
+[
+  {
+    "title": "Particle Tracking Study",
+    "category": "CFD / DPM",
+    "description": "Particle tracking study performed using CFD simulations to evaluate particle trajectories, deposition characteristics and flow behavior.",
+    "report": "projects/particle-tracking-study/report.pdf"
+  }
+]
