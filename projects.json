@@ -4,7 +4,7 @@
     "category": "CFD / DPM",
     "description": "Particle tracking study performed using CFD simulations to evaluate particle trajectories, deposition characteristics and flow behavior.",
     "report": "projects/particle-tracking-study/report.pdf",
-    "excel": "projects/particle-tracking-study/results.xlsx",
+    "excel": "projects/particle-tracking-study/test.xlsx",
     "image": "projects/particle-tracking-study/particle-tracking.png"
   }
 ]
