@@ -6,61 +6,66 @@
 <title>Engineering Project Review Portal</title>
 <style>
 body{font-family:Arial,sans-serif;background:#f5f7fa;margin:0;padding:30px;}
-h1{text-align:center;color:#1f2937;}
-.subtitle{text-align:center;color:#6b7280;margin-bottom:40px;}
-.card{background:white;border-radius:10px;padding:25px;margin:20px auto;max-width:1000px;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
-.category{display:inline-block;background:#e5e7eb;padding:5px 10px;border-radius:20px;font-size:12px;margin-bottom:15px;}
-.project-image{width:100%;max-height:400px;object-fit:contain;margin-bottom:15px;border-radius:8px;}
-.download-btn{display:inline-block;background:#2563eb;color:white;text-decoration:none;padding:10px 18px;border-radius:6px;margin-right:10px;margin-top:10px;}
-.footer{text-align:center;margin-top:40px;color:#6b7280;}
+#loginBox{max-width:400px;margin:100px auto;background:white;padding:25px;border-radius:10px;text-align:center;}
+#portal{display:none;}
+.card{background:white;padding:20px;border-radius:10px;margin:20px auto;max-width:1000px;}
+.btn{background:#2563eb;color:white;padding:10px 15px;border:none;border-radius:5px;cursor:pointer;margin-right:10px;}
+img{max-width:100%;max-height:350px;}
 </style>
 </head>
 <body>
-
-<h1>Engineering Project Review Portal</h1>
-<p class="subtitle">Project reports, simulation results and downloadable documentation</p>
-
-<div id="projects"></div>
-
-<script>
-fetch('projects.json')
-.then(response => response.json())
-.then(projects => {
-const container = document.getElementById('projects');
-
-projects.forEach(project => {
-const card = document.createElement('div');
-card.className = 'card';
-
-card.innerHTML = `
-<div class="category">${project.category}</div>
-<h2>${project.title}</h2>
-
-<img class="project-image"
-src="${project.image}"
-alt="${project.title}">
-
-<p>${project.description}</p>
-
-<a class="download-btn" href="${project.report}" target="_blank">
-Download Report
-</a>
-
-<a class="download-btn" href="${project.excel}" target="_blank">
-Download Excel
-</a>
-`;
-
-container.appendChild(card);
-});
-});
-</script>
-
-<!-- Paste Giscus code here -->
-
-<div class="footer">
-Engineering Project Review Portal
+<div id="loginBox">
+<h2>Engineering Project Portal</h2>
+<p>Enter website password</p>
+<input type="password" id="sitePassword">
+<br><br>
+<button class="btn" onclick="login()">Login</button>
 </div>
 
+<div id="portal">
+<h1>Engineering Project Review Portal</h1>
+<div id="projects"></div>
+</div>
+
+<script>
+const WEBSITE_PASSWORD='CFDReview2026';
+
+function login(){
+ if(document.getElementById('sitePassword').value===WEBSITE_PASSWORD){
+   document.getElementById('loginBox').style.display='none';
+   document.getElementById('portal').style.display='block';
+ } else {
+   alert('Incorrect website password');
+ }
+}
+
+fetch('projects.json')
+.then(r=>r.json())
+.then(projects=>{
+ const container=document.getElementById('projects');
+ projects.forEach(project=>{
+  const card=document.createElement('div');
+  card.className='card';
+  card.innerHTML=`
+   <h2>${project.title}</h2>
+   <p><b>Category:</b> ${project.category}</p>
+   <img src="${project.image}" alt="${project.title}">
+   <p>${project.description}</p>
+   <button class="btn" onclick="downloadProtected('${project.report}','${project.downloadPassword}')">Download Report</button>
+   <button class="btn" onclick="downloadProtected('${project.excel}','${project.downloadPassword}')">Download Excel</button>
+  `;
+  container.appendChild(card);
+ });
+});
+
+function downloadProtected(file,password){
+ let entered=prompt('Enter project download password');
+ if(entered===password){
+   window.open(file,'_blank');
+ } else {
+   alert('Incorrect project password');
+ }
+}
+</script>
 </body>
 </html>
